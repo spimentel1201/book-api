@@ -8,12 +8,16 @@ import { join } from 'path';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AuthorsModule } from './authors/authors.module';
 import { BooksModule } from './books/books.module';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    /**
+     * Importing TypeOrmModule with forRoot method to configure database connection.
+     */
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -24,11 +28,15 @@ import { BooksModule } from './books/books.module';
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       synchronize: true,
     }),
-    GraphQLModule.forRoot({
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
       introspection: true,
     }),
+    /**
+     * Importing Authors and Books Module to enable author and books functionality.
+     */
     AuthorsModule,
     BooksModule,
   ],

@@ -1,42 +1,18 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { InputType, Field, ObjectType } from '@nestjs/graphql';
+/* eslint-disable prettier/prettier */
+import { InputType, Field, Int } from '@nestjs/graphql';
+import { IsOptional, IsPositive, Min } from 'class-validator';
 
 @InputType()
-export class PaginationArgs {
-    @Field({ nullable: true })
-    after?: string;
+export class PaginationDto {
+    @IsOptional()
+    @IsPositive()
+    @Field(type => Int, { defaultValue: 0 })
+    offset: number;
 
-    @Field({ nullable: true })
-    before?: string;
-
-    @Field({ defaultValue: 10 })
-    first?: number;
-
-    @Field({ defaultValue: 10 })
-    last?: number;
-}
-
-@ObjectType()
-export class PageInfo {
-    @Field()
-    hasNextPage: boolean;
-
-    @Field()
-    hasPreviousPage: boolean;
-
-    @Field({ nullable: true })
-    startCursor?: string;
-
-    @Field({ nullable: true })
-    endCursor?: string;
-}
-
-@ObjectType()
-export class PaginatedResponse<T> {
-    @Field(type => [T])
-    edges: T[];
-
-    @Field()
-    pageInfo: PageInfo;
+    
+    @IsOptional()
+    @Min(0)
+    @Field(type => Int, { defaultValue: 10 })
+    limit: number;
 }
