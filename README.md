@@ -34,6 +34,7 @@ $ npm install
 
 - Use this variables and change for your database variables
 
+```bash
 #BACKEND PORT
 PORT=your-port
 #DATABASE CONFIG
@@ -42,7 +43,7 @@ DB_PORT=5432
 DB_USER=your-username
 DB_PASSWORD=your-password
 DB_NAME=your-database-name
-
+```
 
 ## Running the app
 
