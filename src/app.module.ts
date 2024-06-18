@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { GraphQLModule } from '@nestjs/graphql';
+import { AuthorsModule } from './authors/authors.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { GraphQLModule } from '@nestjs/graphql';
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
+    AuthorsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
