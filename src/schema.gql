@@ -1,0 +1,74 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Book {
+  """The identifier of the book"""
+  id: String!
+
+  """The title of the book"""
+  title: String!
+
+  """The description of the book"""
+  description: String!
+
+  """The author of a book"""
+  author: Author!
+}
+
+type Author {
+  """Identifier of the author"""
+  id: String!
+
+  """Author´s name"""
+  name: String!
+
+  """Author´s last name"""
+  lastName: String!
+
+  """Relation of books from author"""
+  books: [Book!]!
+}
+
+type Query {
+  authors(paginationDto: PaginationDto): [Author!]!
+  books(paginationDto: PaginationDto): [Book!]!
+}
+
+input PaginationDto {
+  offset: Int! = 0
+  limit: Int! = 10
+}
+
+type Mutation {
+  createAuthor(createAuthorDto: CreateAuthorDto!): Author!
+  updateAuthor(updateAuthorDto: UpdateAuthorDto!): Author!
+  removeAuthor(id: String!): Author!
+  createBook(createBookDto: CreateBookDto!): Book!
+  updateBook(updateBookDto: UpdateBookDto!): Book!
+  removeBook(id: String!): Book!
+}
+
+input CreateAuthorDto {
+  name: String!
+  lastName: String!
+}
+
+input UpdateAuthorDto {
+  name: String
+  lastName: String
+  id: String!
+}
+
+input CreateBookDto {
+  title: String!
+  description: String!
+  authorId: String!
+}
+
+input UpdateBookDto {
+  title: String
+  description: String
+  authorId: String
+  id: String!
+}
