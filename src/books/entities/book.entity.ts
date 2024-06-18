@@ -7,19 +7,19 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 @ObjectType()
 @Entity()
 export class Book {
-    @Field()
+    @Field({ description: 'The identifier of the book' })
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Field()
+    @Field({ description: 'The title of the book' })
     @Column()
     title: string;
 
-    @Field()
+    @Field({ description: 'The description of the book' })
     @Column()
     description: string;
 
-    @Field(type => Author)
+    @Field(type => Author, { description: 'The author of a book' })
     @ManyToOne(type => Author, author => author.books)
     author: Author;
 }

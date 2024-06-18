@@ -26,6 +26,8 @@ import { BooksModule } from './books/books.module';
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: true,
+      introspection: true,
     }),
     AuthorsModule,
     BooksModule,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +7,8 @@ import { Repository } from 'typeorm';
 import { Author } from 'src/authors/entities/author.entity';
 import { CreateBookDto } from './dtos/create-book.dto';
 import { UpdateBookDto } from './dtos/update-book.dto';
+import { PaginationService } from 'src/common/services/pagination.service';
+import { PaginatedResponse, PaginationArgs } from 'src/common/dtos/pagination.dto';
 
 @Injectable()
 export class BooksService {
@@ -14,10 +17,11 @@ export class BooksService {
         private booksRepository: Repository<Book>,
         @InjectRepository(Author)
         private authorsRepository: Repository<Author>,
+        private paginationService: PaginationService,
     ) {}
     
-    async findAll(): Promise<Book[]> {
-        return this.booksRepository.find({ relations: ['author'] });
+    async findAll(paginationArgs: PaginationArgs): Promise<PaginatedResponse<Book>> {
+        return this.paginationService.paginate(this.booksRepository, paginationArgs, ['author']);
     }
     
     async findOne(id: string): Promise<Book> {
