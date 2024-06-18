@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Book } from "src/books/entities/book.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @ObjectType()
 @Entity()
@@ -21,12 +23,8 @@ export class Author {
         name: 'last_name',
     })
     lastName: string;
-    
-    @Field()
-    @Column('boolean', {
-        default: true,
-        nullable: false,
-        name: 'is_active',
-    })
-    isActive: boolean;
+
+    @Field(type => [Book])
+    @OneToMany(type => Book, book => book.author)
+    books: Book[];
 }
