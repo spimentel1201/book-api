@@ -23,6 +23,12 @@
 ## Description
 
 Books API using NestJS and GraphQL.
+  - CRUD de autores y libros
+
+**REQUISITOS:**
+  - En modo desarrollo:
+    - Tener instalado PostgreSQL en tu computadora. Y la base de datos creada.
+    - Tener Node js instalado.
 
 ## Installation
 
